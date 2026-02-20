@@ -11,30 +11,34 @@ class RoverController:
         self.model = model
         self.data = data
         
-        real_width = 0.55
-        slip_factor = 8.897475
+        # Real width matches the XML where y=0.25 and y=-0.25 (0.25 * 2 = 0.5)
+        real_width = 0.50
+        slip_factor = 2.2
         
         self.r = 0.1
         self.width = slip_factor * real_width
         
-        self.lf_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "lf_motor")
-        self.lm_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "lm_motor")
-        self.lr_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "lr_motor")
+        # FIXED: Mapped exact actuator names from six_wheel_rover.xml
+        self.fl_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "fl_motor")
+        self.ml_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "ml_motor")
+        self.rl_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "rl_motor")
         
-        self.rf_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "rf_motor")
-        self.rm_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "rm_motor")
+        self.fr_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "fr_motor")
+        self.mr_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "mr_motor")
         self.rr_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, "rr_motor")
 
     def move(self, v_linear, w_angular):
         left_vel  = (v_linear - (self.width / 2.0) * w_angular) / self.r
         right_vel = (v_linear + (self.width / 2.0) * w_angular) / self.r
 
-        self.data.ctrl[self.lf_id] = left_vel
-        self.data.ctrl[self.lm_id] = left_vel
-        self.data.ctrl[self.lr_id] = left_vel
+        # Apply left velocities
+        self.data.ctrl[self.fl_id] = left_vel
+        self.data.ctrl[self.ml_id] = left_vel
+        self.data.ctrl[self.rl_id] = left_vel
         
-        self.data.ctrl[self.rf_id] = right_vel
-        self.data.ctrl[self.rm_id] = right_vel
+        # Apply right velocities
+        self.data.ctrl[self.fr_id] = right_vel
+        self.data.ctrl[self.mr_id] = right_vel
         self.data.ctrl[self.rr_id] = right_vel
 
 def main():
@@ -55,44 +59,26 @@ def main():
             path_x.append(data.qpos[0])
             path_y.append(data.qpos[1])
             times.append(t)
-            
+                
             if t < 2.0:
                 v, w = 1.0, 0.0
-            elif t < 2.5:
-                v, w = 0.0, 0.0
-            elif t < 3.5:
+            elif t < 3.0:
                 v, w = 0.0, 1.57
-            elif t < 4.0:
-                v, w = 0.0, 0.0
-                
-            elif t < 6.0:
+            elif t < 5.0:
                 v, w = 1.0, 0.0
-            elif t < 6.5:
-                v, w = 0.0, 0.0
-            elif t < 7.5:
+            elif t < 6.0:
                 v, w = 0.0, 1.57
             elif t < 8.0:
-                v, w = 0.0, 0.0
-                
-            elif t < 10.0:
                 v, w = 1.0, 0.0
-            elif t < 10.5:
-                v, w = 0.0, 0.0
-            elif t < 11.5:
+            elif t < 9.0:
                 v, w = 0.0, 1.57
+            elif t < 11.0:
+                v, w = 1.0, 0.0
             elif t < 12.0:
-                v, w = 0.0, 0.0
-                
-            elif t < 14.0:
-                v, w = 1.0, 0.0
-            elif t < 14.5:
-                v, w = 0.0, 0.0
-            elif t < 15.5:
                 v, w = 0.0, 1.57
-                
             else:
                 v, w = 0.0, 0.0
-                if t > 16: break 
+                if t > 12.0: break
             
             rover.move(v, w)
             mujoco.mj_step(model, data)
@@ -100,6 +86,7 @@ def main():
             
             time.sleep(model.opt.timestep)
 
+    # Plotting the trajectory
     plt.figure(figsize=(10, 10))
     plt.plot(path_x, path_y, label='Actual Path', color='blue', linewidth=2)
     plt.scatter(path_x[0], path_y[0], color='green', label='Start', zorder=5, s=100)
