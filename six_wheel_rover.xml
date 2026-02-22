@@ -29,42 +29,42 @@
       <inertial pos="0 0 0" mass="5" diaginertia="0.1 0.1 0.1"/>
       
       <!-- Front Left Wheel -->
-      <body name="front_left_wheel" pos="0.25 0.25 -0.05">
+      <body name="front_left_wheel" pos="0.25 0.225 -0.05">
         <joint name="front_left_joint" type="hinge" axis="0 1 0" damping="0.1" armature="0.02"/>
         <geom name="fl_wheel" type="cylinder" size="0.1 0.025" rgba="0.2 0.2 0.2 1" mass="0.5" friction="1 0.005 0.0001" euler="1.5708 0 0"/>
         <inertial pos="0 0 0" mass="0.5" diaginertia="0.005 0.005 0.005"/>
       </body>
       
       <!-- Front Right Wheel -->
-      <body name="front_right_wheel" pos="0.25 -0.25 -0.05">
+      <body name="front_right_wheel" pos="0.25 -0.225 -0.05">
         <joint name="front_right_joint" type="hinge" axis="0 1 0" damping="0.1" armature="0.02"/>
         <geom name="fr_wheel" type="cylinder" size="0.1 0.025" rgba="0.2 0.2 0.2 1" mass="0.5" friction="1 0.005 0.0001" euler="1.5708 0 0"/>
         <inertial pos="0 0 0" mass="0.5" diaginertia="0.005 0.005 0.005"/>
       </body>
 
       <!-- Middle Left Wheel -->
-      <body name="middle_left_wheel" pos="0.0 0.25 -0.05">
+      <body name="middle_left_wheel" pos="0.0 0.225 -0.05">
         <joint name="middle_left_joint" type="hinge" axis="0 1 0" damping="0.1" armature="0.02"/>
         <geom name="ml_wheel" type="cylinder" size="0.1 0.025" rgba="0.2 0.2 0.2 1" mass="0.5" friction="1 0.005 0.0001" euler="1.5708 0 0"/>
         <inertial pos="0 0 0" mass="0.5" diaginertia="0.005 0.005 0.005"/>
       </body>
       
       <!-- Middle Right Wheel -->
-      <body name="middle_right_wheel" pos="0.0 -0.25 -0.05">
+      <body name="middle_right_wheel" pos="0.0 -0.225 -0.05">
         <joint name="middle_right_joint" type="hinge" axis="0 1 0" damping="0.1" armature="0.02"/>
         <geom name="mr_wheel" type="cylinder" size="0.1 0.025" rgba="0.2 0.2 0.2 1" mass="0.5" friction="1 0.005 0.0001" euler="1.5708 0 0"/>
         <inertial pos="0 0 0" mass="0.5" diaginertia="0.005 0.005 0.005"/>
       </body>
       
       <!-- Rear Left Wheel -->
-      <body name="rear_left_wheel" pos="-0.25 0.25 -0.05">
+      <body name="rear_left_wheel" pos="-0.25 0.225 -0.05">
         <joint name="rear_left_joint" type="hinge" axis="0 1 0" damping="0.1" armature="0.02"/>
         <geom name="rl_wheel" type="cylinder" size="0.1 0.025" rgba="0.2 0.2 0.2 1" mass="0.5" friction="1 0.005 0.0001" euler="1.5708 0 0"/>
         <inertial pos="0 0 0" mass="0.5" diaginertia="0.005 0.005 0.005"/>
       </body>
       
       <!-- Rear Right Wheel -->
-      <body name="rear_right_wheel" pos="-0.25 -0.25 -0.05">
+      <body name="rear_right_wheel" pos="-0.25 -0.225 -0.05">
         <joint name="rear_right_joint" type="hinge" axis="0 1 0" damping="0.1" armature="0.02"/>
         <geom name="rr_wheel" type="cylinder" size="0.1 0.025" rgba="0.2 0.2 0.2 1" mass="0.5" friction="1 0.005 0.0001" euler="1.5708 0 0"/>
         <inertial pos="0 0 0" mass="0.5" diaginertia="0.005 0.005 0.005"/>

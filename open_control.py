@@ -11,9 +11,9 @@ class RoverController:
         self.model = model
         self.data = data
         
-        # Real width matches the XML where y=0.25 and y=-0.25 (0.25 * 2 = 0.5)
-        real_width = 0.50
-        slip_factor = 2.2
+        # Real width matches the XML where y=0.225 and y=-0.225 (0.225 * 2 = 0.45)
+        real_width = 0.45
+        slip_factor = 2.6
         
         self.r = 0.1
         self.width = slip_factor * real_width
